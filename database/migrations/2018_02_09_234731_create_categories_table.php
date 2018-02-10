@@ -14,18 +14,18 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string("name", 256);
-            $table->string("slug", 256);
-            $table->unsignedInteger("display_order")->default(0);
-            $table->boolean("visible")->default(true);
-            $table->text("description")->nullable()->default(null);
+            $table->increments('id')->unsigned();
+            $table->string('name', 256);
+            $table->string('slug', 256)->unique();
+            $table->unsignedInteger('display_order')->default(0);
+            $table->boolean('visible')->default(true);
+            $table->text('description')->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
             // index & other constraints
             $table->index(['name']);
-            $table->unique("slug");
-            $table->unique("visible");
+            $table->index(['display_order']);
+            $table->unique('visible');
         });
     }
 
