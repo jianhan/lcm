@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCoursesTable extends Migration
 {
@@ -16,14 +16,19 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
             $table->string("name", 256);
-            $table->string("slug", 256);
-            $table->dateTime("start")->nullable()->default(NULL);
-            $table->dateTime("end")->nullable()->default(NULL);
+            $table->string("slug", 256)->unique();
+            $table->dateTime("start")->nullable()->default(null);
+            $table->dateTime("end")->nullable()->default(null);
             $table->boolean("visible")->default(true);
-            $table->text("description")->nullable()->default(NULL);
+            $table->text("description")->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
             // index & other constraints
+            $table->index(['name']);
+            $table->index("start");
+            $table->index("end");
+            $table->index("visible");
+            $table->index(["start", "end"]);
         });
     }
 

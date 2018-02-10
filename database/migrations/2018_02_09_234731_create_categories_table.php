@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateCategoriesTable extends Migration
 {
     /**
-     * Run the migrations.
+    * Run the migrations.
      *
      * @return void
      */
@@ -19,9 +19,13 @@ class CreateCategoriesTable extends Migration
             $table->string("slug", 256);
             $table->unsignedInteger("display_order")->default(0);
             $table->boolean("visible")->default(true);
-            $table->text("description")->nullable()->default(NULL);
+            $table->text("description")->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
+            // index & other constraints
+            $table->index(['name']);
+            $table->unique("slug");
+            $table->unique("visible");
         });
     }
 
