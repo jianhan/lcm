@@ -61,7 +61,10 @@
                             </div>
                         </div>
                     </form>
-                    <a href="/login/github" class="btn btn-default btn-md">Log in with Github</a>
+                    <div class="links">
+                        <a href="{{url('auth/redirect')}}">Authenticate with GitHub</a>
+                    </div>
+
                 </div>
             </div>
         </div>

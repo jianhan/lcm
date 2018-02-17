@@ -14,7 +14,7 @@ class SocialAccountController extends Controller
      */
     public function redirectToProvider($provider)
     {
-        return \Socialite::driver($provider)->redirect();
+        return \Socialite::driver($provider)->stateless()->redirect();
     }
 
     /**
@@ -34,7 +34,7 @@ class SocialAccountController extends Controller
             $user,
             $provider
         );
-
+        dd($authUser);
         auth()->login($authUser, true);
 
         return redirect()->to('/home');
