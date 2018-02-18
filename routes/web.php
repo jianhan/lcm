@@ -19,5 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('auth/redirect', 'AuthController@redirect');
-Route::get('auth/callback', 'AuthController@callback');
+Route::get('auth/redirect/{provider}', 'Auth\LoginController@redirect');
+Route::get('auth/callback/{provider}', 'Auth\LoginController@callback');

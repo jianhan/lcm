@@ -62,7 +62,7 @@
                         </div>
                     </form>
                     <div class="links">
-                        <a href="{{url('auth/redirect')}}">Authenticate with GitHub</a>
+                        <a href="{{url('auth/redirect/github')}}">Authenticate with GitHub</a>
                     </div>
 
                 </div>

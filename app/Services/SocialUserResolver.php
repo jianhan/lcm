@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth;
+namespace App\Services;
 
 use Adaojunior\Passport\SocialGrantException;
 use Adaojunior\Passport\SocialUserResolverInterface;

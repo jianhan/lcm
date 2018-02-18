@@ -48,7 +48,9 @@
         "spatie/laravel-tags": "^2.0",
         "spatie/laravel-translatable": "^2.1",
         "spatie/laravel-url-signer": "^2.2",
-        "ixudra/curl": "6.*"
+        "ixudra/curl": "6.*",
+        "dingo/api": "2.0.0-alpha1",
+        "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Adaojunior\Passport\SocialUserResolverInterface;
-use App\Auth\SocialUserResolver;
+use App\Services\SocialUserResolver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-
     }
+
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\SocialAccounts;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Socialite;
 
 class LoginController extends Controller
@@ -43,21 +45,37 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider()
+    public function redirect($provider)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from provider.
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function callback(SocialAccounts $accountService, $provider)
     {
-        $user = Socialite::driver('github')->stateless()->user();
-        dd($user);
-        // $user->token;
+        try {
+            $user = Socialite::driver($provider)->stateless()->user();
+            $accountService->findOrCreate($user, $provider);
+            $proxy = Request::create(
+                '/oauth/token',
+                'POST',
+                [
+                    'grant_type' => 'social',
+                    'client_id' => 1,
+                    'client_secret' => 'xX14HdVtfugAhERXUoYdGyclhMcseUvXqxhg3ct7',
+                    'network' => $provider,
+                    'access_token' => $user->token,
+                ]
+            );
+        } catch (\Exception $e) {
+            //TODO: send error back
+            dd($e);
+        }
+        return app()->handle($proxy);
     }
 }
 
