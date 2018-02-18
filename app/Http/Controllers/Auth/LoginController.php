@@ -59,7 +59,7 @@ class LoginController extends Controller
     {
         try {
             $user = Socialite::driver($provider)->stateless()->user();
-            $accountService->findOrCreate($user, $provider);
+            $internalUser = $accountService->findOrCreate($user, $provider);
             $proxy = Request::create(
                 '/oauth/token',
                 'POST',
@@ -71,12 +71,17 @@ class LoginController extends Controller
                     'access_token' => $user->token,
                 ]
             );
+            $data = json_decode(app()->handle($proxy)->getContent());
+            $data->name = $internalUser->name;
+            $data->id = $internalUser->id;
+            $data->email = $internalUser->email;
+            $queryString = http_build_query($data);
+            return redirect()->away(env('F_CALLBACK_URL') . '?' . $queryString);
         } catch (\Exception $e) {
             //TODO: send error back
             dd($e->getMessage());
         }
-        $queryString = http_build_query(json_decode(app()->handle($proxy)->getContent()));
-        return redirect()->away(env('F_CALLBACK_URL') . '?' . $queryString);
+
     }
 }
 
