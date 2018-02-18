@@ -65,17 +65,18 @@ class LoginController extends Controller
                 'POST',
                 [
                     'grant_type' => 'social',
-                    'client_id' => 1,
-                    'client_secret' => 'xX14HdVtfugAhERXUoYdGyclhMcseUvXqxhg3ct7',
+                    'client_id' => env('CLIENT_ID'),
+                    'client_secret' => env('CLIENT_SECRET'),
                     'network' => $provider,
                     'access_token' => $user->token,
                 ]
             );
         } catch (\Exception $e) {
             //TODO: send error back
-            dd($e);
+            dd($e->getMessage());
         }
-        return app()->handle($proxy);
+        $queryString = http_build_query(json_decode(app()->handle($proxy)->getContent()));
+        return redirect()->away(env('F_CALLBACK_URL') . '?' . $queryString);
     }
 }
 
