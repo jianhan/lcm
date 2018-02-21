@@ -71,11 +71,7 @@ class LoginController extends Controller
                     'access_token' => $user->token,
                 ]
             );
-            $data = json_decode(app()->handle($proxy)->getContent());
-            $data->name = $internalUser->name;
-            $data->id = $internalUser->id;
-            $data->email = $internalUser->email;
-            $queryString = http_build_query($data);
+            $queryString = http_build_query(json_decode(app()->handle($proxy)->getContent()));
             return redirect()->away(env('F_CALLBACK_URL') . '?' . $queryString);
         } catch (\Exception $e) {
             //TODO: send error back

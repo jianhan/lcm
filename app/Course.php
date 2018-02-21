@@ -12,6 +12,8 @@ class Course extends Model
 
     protected $with = ['categories'];
 
+    protected $guarded = ['id'];
+
     /**
      * The roles that belong to the user.
      */

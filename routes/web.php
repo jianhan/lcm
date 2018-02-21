@@ -11,13 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('auth/redirect/{provider}', 'Auth\LoginController@redirect');
-Route::get('auth/callback/{provider}', 'Auth\LoginController@callback');

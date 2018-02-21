@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('auth/redirect/{provider}', 'Auth\LoginController@redirect');
+Route::get('auth/callback/{provider}', 'Auth\LoginController@callback');
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 });
@@ -22,6 +25,6 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     // User group
     $api->group(['middleware' => 'auth:api'], function ($api) {
-        $api->get('user', 'App\Api\Controllers\UserController@show');
+        $api->resource('courses', 'App\Api\Controllers\CourseController');
     });
 });
