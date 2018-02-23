@@ -3,6 +3,7 @@
 namespace App\Api\V1\Controllers;
 
 use App\Course;
+use App\Http\Requests\StoreCourse;
 use Illuminate\Http\Request;
 
 class CourseController extends \App\Http\Controllers\Controller
@@ -34,9 +35,9 @@ class CourseController extends \App\Http\Controllers\Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCourse $request)
     {
-        dd($request);
+        dd($request->all());
     }
 
     /**
