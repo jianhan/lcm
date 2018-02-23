@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Controllers;
+namespace App\Api\V1\Controllers;
 
 use App\Course;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,7 +36,7 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -47,7 +47,8 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::find($id);
+        return $course;
     }
 
     /**

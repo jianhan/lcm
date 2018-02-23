@@ -22,9 +22,9 @@ Route::get('/user', function (Request $request) {
 
 
 $api = app('Dingo\Api\Routing\Router');
-$api->version('v1', function ($api) {
+$api->version('v1', ['prefix' => 'api/v1', 'namespace' => 'App\Api\V1\Controllers', 'middleware' => 'cors'], function ($api) {
     // User group
     $api->group(['middleware' => 'auth:api'], function ($api) {
-        $api->resource('courses', 'App\Api\Controllers\CourseController');
+        $api->resource('courses', 'CourseController');
     });
 });
