@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Dingo\Api\Http\FormRequest;
 
 class StoreCourse extends FormRequest
 {
@@ -27,8 +27,23 @@ class StoreCourse extends FormRequest
             'name' => 'required|unique:courses,name',
             'slug' => 'required|unique:courses,slug|alpha_dash',
             'description' => 'required|max:1024',
-            'start' => 'required|date_format:d-m-Y H:i',
-            'end' => 'required|date_format:d-m-Y H:i',
+            'start' => 'required|regex:' . Config::get('constants.api.date_format_regex'),
+            //TODO: following format should work but not in laravel for some reason
+            // 'end' => 'required|date_format:Y-m-d\TH:i:s.v\Z',
+            'end' => 'required|regex:' . Config::get('constants.api.date_format_regex'),
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'A name is required',
+            'slug.required' => 'A slug is required',
         ];
     }
 }
