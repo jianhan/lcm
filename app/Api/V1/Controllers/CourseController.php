@@ -4,6 +4,7 @@ namespace App\Api\V1\Controllers;
 
 use App\Course;
 use App\Http\Requests\StoreCourse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CourseController extends \App\Http\Controllers\Controller
@@ -37,7 +38,10 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function store(StoreCourse $request)
     {
-        dd($request->all());
+        $course = $request->all();
+        $course['start'] = Carbon::createFromFormat(\Config::get('constants.api.date_format'), $course['start'])->toDateTimeString();
+        $course['end'] = Carbon::createFromFormat(\Config::get('constants.api.date_format'), $course['end'])->toDateTimeString();
+        return Course::create($course);
     }
 
     /**

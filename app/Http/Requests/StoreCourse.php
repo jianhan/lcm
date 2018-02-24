@@ -27,10 +27,8 @@ class StoreCourse extends FormRequest
             'name' => 'required|unique:courses,name',
             'slug' => 'required|unique:courses,slug|alpha_dash',
             'description' => 'required|max:1024',
-            'start' => 'required|regex:' . Config::get('constants.api.date_format_regex'),
-            //TODO: following format should work but not in laravel for some reason
-            // 'end' => 'required|date_format:Y-m-d\TH:i:s.v\Z',
-            'end' => 'required|regex:' . Config::get('constants.api.date_format_regex'),
+            'start' => 'required|regex:' . \Config::get('constants.api.date_format_regex'),
+            'end' => 'required|regex:' . \Config::get('constants.api.date_format_regex'),
         ];
     }
 
