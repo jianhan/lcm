@@ -2,6 +2,7 @@
 
 namespace App\Api\V1\Controllers;
 
+use App\Api\Transformers\CourseTransformer;
 use App\Course;
 use App\Http\Requests\StoreCourse;
 use Carbon\Carbon;
@@ -20,8 +21,7 @@ class CourseController extends \App\Http\Controllers\Controller
         return $courses;
     }
 
-    /**
-     * Show the form for creating a new resource.
+    /** * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -52,8 +52,7 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function show($id)
     {
-        $course = Course::find($id);
-        return $course;
+        return (new CourseTransformer)->transform(Course::findOrFail($id));
     }
 
     /**
@@ -64,7 +63,6 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
