@@ -5,6 +5,7 @@ namespace App\Api\V1\Controllers;
 use App\Api\Transformers\CourseTransformer;
 use App\Course;
 use App\Http\Requests\StoreCourse;
+use App\Http\Requests\UpdateCourse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -72,9 +73,9 @@ class CourseController extends \App\Http\Controllers\Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCourse $request, $id)
     {
-        //
+        Course::findOrFail($id)->update($request);
     }
 
     /**

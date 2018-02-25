@@ -4,8 +4,10 @@ namespace App\Http\Requests;
 
 use App\Course;
 use Dingo\Api\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCourse extends FormRequest
+
+class UpdateCourse extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +26,16 @@ class StoreCourse extends FormRequest
      */
     public function rules()
     {
-        return Course::validationRules();
+        $rules = Course::validationRules();
+        $rules['name'] = [
+            'required',
+            Rule::unique('courses')->ignore(\Request::get('id')),
+        ];
+        $rules['slug'] = [
+            'required',
+            Rule::unique('courses', 'slug')->ignore(\Request::get('id')),
+        ];
+        return $rules;
     }
 
     /**
