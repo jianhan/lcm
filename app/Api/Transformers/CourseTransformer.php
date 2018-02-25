@@ -15,8 +15,8 @@ class CourseTransformer extends TransformerAbstract
             'slug' => $course->slug,
             'description' => $course->description,
             'visible' => $course->visible,
-            'start' => Carbon::createFromFormat('Y-m-d H:i:s', $course->start)->format(\Config::get('constants.api.date_format')),
-            'end' => Carbon::createFromFormat('Y-m-d H:i:s', $course->end)->format(\Config::get('constants.api.date_format')),
+            'start' => Carbon::createFromFormat('Y-m-d H:i:s', $course->start)->format(\Config::get('constants.api.date_format_iso_8600')),
+            'end' => Carbon::createFromFormat('Y-m-d H:i:s', $course->end)->format(\Config::get('constants.api.date_format_iso_8600')),
         ];
     }
 }
