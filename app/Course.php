@@ -14,6 +14,28 @@ class Course extends Model
 
     protected $guarded = ['id'];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'visible' => 'boolean',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'start',
+        'end',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public static function validationRules(): array
     {
         return [
