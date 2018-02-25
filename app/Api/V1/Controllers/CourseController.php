@@ -40,6 +40,7 @@ class CourseController extends \App\Http\Controllers\Controller
     public function store(StoreCourse $request)
     {
         $course = $request->all();
+        dd($course);
         $course['start'] = Carbon::createFromFormat(\Config::get('constants.api.date_format'), $course['start'])->toDateTimeString();
         $course['end'] = Carbon::createFromFormat(\Config::get('constants.api.date_format'), $course['end'])->toDateTimeString();
         return Course::create($course);
@@ -75,7 +76,10 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function update(UpdateCourse $request, $id)
     {
-        Course::findOrFail($id)->update($request);
+        $course = Course::findOrFail($id);
+        $input = $request->all();
+
+        Course::findOrFail($id)->update($request->all());
     }
 
     /**

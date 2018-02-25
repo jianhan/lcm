@@ -42,8 +42,8 @@ class Course extends Model
             'name' => 'required|unique:courses,name',
             'slug' => 'required|alpha_dash|unique:courses,slug',
             'description' => 'required|max:1024',
-            'start' => 'required|regex:' . \Config::get('constants.api.date_format_regex'),
-            'end' => 'required|regex:' . \Config::get('constants.api.date_format_regex'),
+            'start' => 'required|date_format:"Y-m-d H:i:s"',
+            'end' => 'required|date_format:"Y-m-d H:i:s"',
         ];
     }
 
