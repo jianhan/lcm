@@ -75,7 +75,6 @@ class LoginController extends Controller
             return redirect()->away(env('F_CALLBACK_URL') . '?' . $queryString);
         } catch (\Exception $e) {
             //TODO: send error back
-            dd($e->getMessage());
         }
 
     }

@@ -6,7 +6,6 @@ use App\Api\Transformers\CourseTransformer;
 use App\Course;
 use App\Http\Requests\StoreCourse;
 use App\Http\Requests\UpdateCourse;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CourseController extends \App\Http\Controllers\Controller
@@ -39,11 +38,7 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function store(StoreCourse $request)
     {
-        $course = $request->all();
-        dd($course);
-        $course['start'] = Carbon::createFromFormat(\Config::get('constants.api.date_format'), $course['start'])->toDateTimeString();
-        $course['end'] = Carbon::createFromFormat(\Config::get('constants.api.date_format'), $course['end'])->toDateTimeString();
-        return Course::create($course);
+        return Course::create($request->all());
     }
 
     /**
