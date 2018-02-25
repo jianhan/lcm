@@ -42,6 +42,7 @@ class Course extends Model
             'name' => 'required|unique:courses,name',
             'slug' => 'required|alpha_dash|unique:courses,slug',
             'description' => 'required|max:1024',
+            'visible' => 'boolean',
             'start' => 'required|date_format:"Y-m-d H:i:s"',
             'end' => 'required|date_format:"Y-m-d H:i:s"',
         ];
