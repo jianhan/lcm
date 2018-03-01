@@ -19,11 +19,9 @@ class VueTable2
     public function handle($request, Closure $next)
     {
         $input = $request->all();
-        $input['hasSort'] = false;
         if (isset($input['sort']) && $arr = $this->isValidSort($input['sort'])) {
             $input['sortDir'] = $arr[1];
             $input['sortBy'] = $arr[0];
-            $input['hasSort'] = true;
         }
         $request->replace($input);
         return $next($request);
@@ -40,7 +38,7 @@ class VueTable2
         $validDirArr = ['desc', 'asc'];
         $arr = explode('|', $value);
         if (sizeof($arr) == 2 && in_array(strtolower($arr[1]), $validDirArr)) {
-            return $arr;;;;
+            return $arr;
         }
         return false;
     }

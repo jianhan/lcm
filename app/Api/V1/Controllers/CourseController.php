@@ -20,7 +20,7 @@ class CourseController extends \App\Http\Controllers\Controller
         $collection = Course::query();
         $sortBy = 'start';
         $sortDir = 'DESC';
-        if ($request->get('hasSort')) {
+        if ($request->get('sortDir', false) && $request->get('sortBy', false)) {
             $sortBy = $request->get('sortBy');
             $sortDir = $request->get('sortDir');
         }
