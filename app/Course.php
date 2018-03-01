@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Validation\Rule;
 
 class Course extends Model
 {
@@ -39,8 +40,15 @@ class Course extends Model
     public static function validationRules(): array
     {
         return [
-            'name' => 'required|unique:courses,name',
-            'slug' => 'required|alpha_dash|unique:courses,slug',
+            'name' => [
+                'required',
+                Rule::unique('courses', 'name')
+            ],
+            'slug' => [
+                'required',
+                Rule::unique('courses', 'slug'),
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+            ],
             'description' => 'required|max:1024',
             'visible' => 'boolean',
             'start' => 'required|date_format:"Y-m-d H:i:s"',
