@@ -22,7 +22,12 @@ Route::get('/user', function (Request $request) {
 
 
 $api = app('Dingo\Api\Routing\Router');
-$api->version('v1', ['prefix' => 'api/v1', 'namespace' => 'App\Api\V1\Controllers', 'middleware' => ['cors', \App\Api\Http\Middleware\TimeParser::class,]], function ($api) {
+$api->version('v1',
+    [
+        'prefix' => 'api/v1',
+        'namespace' => 'App\Api\V1\Controllers',
+        'middleware' => ['cors', \App\Api\Http\Middleware\TimeParser::class, \App\Api\Http\Middleware\VueTable2::class]
+    ], function ($api) {
     // User group
     $api->group(['middleware' => 'auth:api'], function ($api) {
         $api->resource('courses', 'CourseController');

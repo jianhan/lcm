@@ -17,8 +17,14 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function index(Request $request)
     {
-        $courses = Course::paginate(10);
-        return $courses;
+        $collection = Course::query();
+        $sortBy = 'start';
+        $sortDir = 'DESC';
+        if ($request->get('hasSort')) {
+            $sortBy = $request->get('sortBy');
+            $sortDir = $request->get('sortDir');
+        }
+        return $collection->orderBy($sortBy, $sortDir)->paginate(10);
     }
 
     /** * Show the form for creating a new resource.
@@ -73,7 +79,6 @@ class CourseController extends \App\Http\Controllers\Controller
     {
         $course = Course::findOrFail($id);
         $input = $request->all();
-
         Course::findOrFail($id)->update($request->all());
     }
 
