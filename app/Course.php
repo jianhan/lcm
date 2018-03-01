@@ -47,7 +47,7 @@ class Course extends Model
             'slug' => [
                 'required',
                 Rule::unique('courses', 'slug'),
-                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+                'regex:' . \Config::get('constants.slug_regex'),
             ],
             'description' => 'required|max:1024',
             'visible' => 'boolean',
