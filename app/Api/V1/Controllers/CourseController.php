@@ -3,12 +3,13 @@
 namespace App\Api\V1\Controllers;
 
 use App\Api\Transformers\CourseTransformer;
+use App\Api\V1\BaseController;
 use App\Course;
 use App\Http\Requests\StoreCourse;
 use App\Http\Requests\UpdateCourse;
 use Illuminate\Http\Request;
 
-class CourseController extends \App\Http\Controllers\Controller
+class CourseController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +25,7 @@ class CourseController extends \App\Http\Controllers\Controller
             $sortBy = $request->get('sortBy');
             $sortDir = $request->get('sortDir');
         }
-        return $collection->orderBy($sortBy, $sortDir)->paginate(10);
+        return $this->response->paginator($collection->orderBy($sortBy, $sortDir)->paginate(10), new CourseTransformer);
     }
 
     /** * Show the form for creating a new resource.
@@ -55,7 +56,7 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function show($id)
     {
-        return (new CourseTransformer)->transform(Course::findOrFail($id));
+        return $this->response->item(Course::findOrFail($id), new CourseTransformer);
     }
 
     /**
@@ -77,8 +78,6 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function update(UpdateCourse $request, $id)
     {
-        $course = Course::findOrFail($id);
-        $input = $request->all();
         Course::findOrFail($id)->update($request->all());
     }
 
@@ -90,6 +89,6 @@ class CourseController extends \App\Http\Controllers\Controller
      */
     public function destroy($id)
     {
-        //
+        Course::deleted($id);
     }
 }
