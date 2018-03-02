@@ -19,6 +19,12 @@ class CourseController extends BaseController
     public function index(Request $request)
     {
         $collection = Course::query();
+        if ($request->get('query', '') !== '') {
+            $collection->where(function ($q) use ($request) {
+                $likeStr = '%' . $request->get('query') . '%';
+                $q->where('name', 'LIKE', $likeStr)->orWhere('description', 'LIKE', $likeStr);
+            });
+        }
         $sortBy = 'start';
         $sortDir = 'DESC';
         if ($request->get('sortDir', false) && $request->get('sortBy', false)) {
@@ -89,6 +95,6 @@ class CourseController extends BaseController
      */
     public function destroy($id)
     {
-        Course::deleted($id);
+        Course::findOrFail($id)->delete();
     }
 }
