@@ -2,11 +2,11 @@
 
 namespace App\Api\V1\Controllers;
 
+use App\Api\Requests\StoreCourse;
+use App\Api\Requests\UpdateCourse;
 use App\Api\Transformers\CourseTransformer;
 use App\Api\V1\BaseController;
 use App\Course;
-use App\Http\Requests\StoreCourse;
-use App\Http\Requests\UpdateCourse;
 use Illuminate\Http\Request;
 
 class CourseController extends BaseController
