@@ -31,5 +31,6 @@ $api->version('v1',
     // User group
     $api->group(['middleware' => 'auth:api'], function ($api) {
         $api->resource('courses', 'CourseController');
+        $api->post('upload', 'FileController@upload');
     });
 });

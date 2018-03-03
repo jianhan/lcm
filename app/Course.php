@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class Course extends Model
+class Course extends Model implements HasMedia
 {
 
-    use SoftDeletes;
+    use SoftDeletes, HasMediaTrait;
 
     protected $with = ['categories'];
 
