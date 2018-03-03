@@ -11,7 +11,7 @@ class FileController extends BaseController
 {
     public function upload(UploadFile $request)
     {
-        foreach ($request->files as $f) {
+        foreach ($request->get('file') as $f) {
             $fileName = 'courses/' . time() . str_slug($f->getClientOriginalName());
             \Storage::disk('s3')->put($fileName, file_get_contents($f), 'public');
             dd($url = \Storage::disk('s3')->url($fileName));

@@ -24,7 +24,7 @@ class UploadFile extends FormRequest
     public function rules()
     {
         return [
-            'file.*' => 'mimes:pdf|max:4096',
+            'file.*' => 'mimetypes:image/jpeg,image/png,image/gif,image/png|max:1',
         ];
     }
 
@@ -35,6 +35,13 @@ class UploadFile extends FormRequest
      */
     public function messages()
     {
-        return [];
+        $messages = [];
+        foreach ($this->request->get('file') as $key => $value) {
+            $fileName = $value->getClientOriginalName();
+            $messages['file.' . $key . '.required'] = 'File ' . $fileName . '  is required';
+            $messages['file.' . $key . '.mimes'] = 'File ' . $fileName . ' must be a image of jpg,jepg,png or gif';
+            $messages['file.' . $key . '.max'] = 'File ' . $fileName . ' must not be over 1MB';
+        }
+        return $messages;
     }
 }
