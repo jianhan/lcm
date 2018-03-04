@@ -25,6 +25,7 @@ class UploadFile extends FormRequest
     {
         return [
             'file.*' => 'mimetypes:image/jpeg,image/png,image/gif,image/png|max:1024',
+            'dir' => 'required|string'
         ];
     }
 
@@ -42,6 +43,8 @@ class UploadFile extends FormRequest
             $messages['file.' . $key . '.mimes'] = 'File ' . $fileName . ' must be a image of jpg,jepg,png or gif';
             $messages['file.' . $key . '.max'] = 'File ' . $fileName . ' must not be over 1MB';
         }
+        $messages['dir.required'] = 'Dir parameter is required';
+        $messages['dir.string'] = 'Dir parameter must be a string';
         return $messages;
     }
 }
