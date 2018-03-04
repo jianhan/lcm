@@ -24,7 +24,7 @@ class UploadFile extends FormRequest
     public function rules()
     {
         return [
-            'file.*' => 'mimetypes:image/jpeg,image/png,image/gif,image/png|max:1',
+            'file.*' => 'mimetypes:image/jpeg,image/png,image/gif,image/png|max:1024',
         ];
     }
 
