@@ -11,13 +11,14 @@ class FileController extends BaseController
 {
     public function upload(UploadFile $request)
     {
+        $file = $request->get('file');
         $uuid = $request->get('uuid', false);
-        $fileUrls = [];
-        foreach ($request->get('file') as $f) {
-            $fileName = $request->get('dir') . time() . str_slug($f->getClientOriginalName());
-            \Storage::disk('s3')->put($fileName, file_get_contents($f), 'public');
-            $fileUrls[] = $url = \Storage::disk('s3')->url($fileName);
-        }
-        return $fileUrls;
+        $fileName = $request->get('dir') . time() . str_slug($file->getClientOriginalName());
+        \Storage::disk('s3')->put($fileName, file_get_contents($file), 'public');
+        $url = \Storage::disk('s3')->url($fileName);
+        return response()->json([
+            'url' => $url,
+            'uuid' => $uuid,
+        ]);
     }
 }
