@@ -42,30 +42,31 @@ class Course extends Model implements HasMedia
     public static function validationRules(): array
     {
         return [
-            'name' => [
+            'course.name' => [
                 'required',
                 Rule::unique('courses', 'name')
             ],
-            'slug' => [
+            'course.slug' => [
                 'required',
                 Rule::unique('courses', 'slug'),
                 'regex:' . \Config::get('constants.slug_regex'),
             ],
-            'description' => 'required|max:1024',
-            'visible' => 'boolean',
-            'start' => 'required|date_format:"Y-m-d H:i:s"',
-            'end' => 'required|date_format:"Y-m-d H:i:s"',
+            'course.description' => 'required|max:1024',
+            'course.visible' => 'boolean',
+            'course.start' => 'required|date_format:"Y-m-d H:i:s"',
+            'course.end' => 'required|date_format:"Y-m-d H:i:s"',
         ];
     }
 
     public static function validationMessages(): array
     {
         return [
-            'name.required' => 'A name is required',
-            'name.unique' => 'Course name must be unique',
-            'slug.required' => 'A slug is required',
-            'start.regex' => 'Invalid start date format',
-            'end.regex' => 'Invalid end date format',
+            'course.name.required' => 'A name is required',
+            'course.name.unique' => 'Course name must be unique',
+            'course.slug.unique' => 'Course slug must be unique',
+            'course.slug.required' => 'A slug is required',
+            'course.start.regex' => 'Invalid start date format',
+            'course.end.regex' => 'Invalid end date format',
         ];
     }
 

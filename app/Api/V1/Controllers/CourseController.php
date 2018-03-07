@@ -51,7 +51,7 @@ class CourseController extends BaseController
      */
     public function store(StoreCourse $request)
     {
-        return Course::create($request->all());
+        return Course::create($request->get('course'));
     }
 
     /**
@@ -84,7 +84,7 @@ class CourseController extends BaseController
      */
     public function update(UpdateCourse $request, $id)
     {
-        Course::findOrFail($id)->update($request->all());
+        Course::findOrFail($id)->update($request->get('course'));
     }
 
     /**
