@@ -24,7 +24,7 @@ class UploadFile extends FormRequest
     public function rules()
     {
         return [
-            'file.*' => 'mimetypes:image/jpeg,image/png,image/gif,image/png|max:1024',
+            'file' => 'mimetypes:image/jpeg,image/png,image/gif,image/png|max:1024',
             'dir' => 'required|string'
         ];
     }
@@ -36,15 +36,16 @@ class UploadFile extends FormRequest
      */
     public function messages()
     {
-        $messages = [];
-        foreach ($this->request->get('file') as $key => $value) {
-            $fileName = $value->getClientOriginalName();
-            $messages['file.' . $key . '.required'] = 'File ' . $fileName . '  is required';
-            $messages['file.' . $key . '.mimes'] = 'File ' . $fileName . ' must be a image of jpg,jepg,png or gif';
-            $messages['file.' . $key . '.max'] = 'File ' . $fileName . ' must not be over 1MB';
+        $fileName = '';
+        if ($this->request->get('file', false)) {
+            $fileName = $this->request->get('file')->getClientOriginalName();
         }
-        $messages['dir.required'] = 'Dir parameter is required';
-        $messages['dir.string'] = 'Dir parameter must be a string';
-        return $messages;
+        return [
+            'file.required' => 'File is required',
+            'file.mimes' => 'File ' . $fileName . ' must be a image of jpg,jepg,png or gif',
+            'file.max' => 'File ' . $fileName . ' must not be over 1MB',
+            'dir.required' => 'Dir parameter is required',
+            'dir.string' => 'Dir parameter must be a string'
+        ];
     }
 }
